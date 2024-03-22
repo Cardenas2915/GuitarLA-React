@@ -1,11 +1,5 @@
-import { useMemo } from "react";
 
-export default function Header({ cart, removeFromCart, increaseCantidad, decreaseCantidad, clearCart }) {
-
-	//state derivado
-	const isEmpty = useMemo(() => cart.length === 0, [cart]) ; //al usar useMemo solo ejecuta el primer parametro **cart.length === 0**, cuando detecte algun cambio es su segundo parametro que es cart
-
-	const cartTotal = useMemo(() => cart.reduce( (total, item) => total + (item.cantidad * item.price), 0), [cart]) //igual que el codigo anterior total se calcula cada vez que carrito cambie
+export default function Header({ cart, removeFromCart, increaseCantidad, decreaseCantidad, clearCart, isEmpty, cartTotal }) {
 
 	return (
 		<header className="py-5 header">
