@@ -4,15 +4,21 @@ import Guitar from "./components/Guitar";
 import { db } from "./data/db";
 
 function App() {
-	const [data, setData] = useState([]);
-	const [cart, setCart] = useState([]);
+
+	const initialCart = () => {
+		const localStorageCart = localStorage.getItem('cart')
+		return localStorageCart ? JSON.parse(localStorageCart) : [] ;
+	}
+
+	const [ data ] = useState(db);
+	const [cart, setCart] = useState(initialCart);
 
 	const Max_Items = 5; //maximo de elemento a pedir
 	const Min_Items = 1; //manimo de elemento a pedir
 
 	useEffect(() => {
-		setData(db);
-	}, []);
+		localStorage.setItem('cart', JSON.stringify(cart))
+	}, [cart]);
 
 	function addToCart(item) {
 		const itemExiste = cart.findIndex((guitar) => guitar.id === item.id)
@@ -76,6 +82,7 @@ function App() {
 	function clearCart() {
 		setCart([])
 	}
+
 
 	return (
 		<>
